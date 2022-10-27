@@ -15,6 +15,10 @@ const houseSchema = new Schema({
   location:{
     type:String,
   },
+  ownerId:{ 
+    type: Schema.Types.ObjectId, 
+    ref: "User" 
+    },
   reservations: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
 });
 
