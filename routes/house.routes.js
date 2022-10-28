@@ -47,7 +47,7 @@ router.get("/houses", (req, res, next) => {
     });
 });
 
-// GET /api/my-houses  -  Get list of my houses
+// GET /api/my-houses  -  Get list of my houses_
 router.get(
   "/my-houses",
   isAuthenticated,
