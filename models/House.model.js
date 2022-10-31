@@ -16,6 +16,19 @@ const houseSchema = new Schema({
   location: {
     type: String,
   },
+  guests: {
+    type: Number,
+  },
+  bedroom: {
+    type: Number,
+  },
+  bed: {
+    type: Number,
+  },
+  bath: {
+    type: Number,
+  },
+  offers: { basicOffers: [String] },
   ownerId: {
     type: Schema.Types.ObjectId,
     ref: "User",
