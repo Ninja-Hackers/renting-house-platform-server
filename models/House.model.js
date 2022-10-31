@@ -3,22 +3,23 @@ const { Schema, model } = mongoose;
 
 const houseSchema = new Schema({
   title: {
-    type:String,
-    required:[true,'Title is required']
+    type: String,
+    required: [true, "Title is required"],
   },
   description: {
-    type:String,
+    type: String,
   },
-  cost:{
-    type:Number,
+  imageUrl: String,
+  cost: {
+    type: Number,
   },
-  location:{
-    type:String,
+  location: {
+    type: String,
   },
-  ownerId:{ 
-    type: Schema.Types.ObjectId, 
-    ref: "User" 
-    },
+  ownerId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   reservations: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
 });
 

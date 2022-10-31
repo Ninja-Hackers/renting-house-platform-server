@@ -4,14 +4,33 @@ const mongoose = require("mongoose");
 const House = require("../models/House.model");
 const Reservation = require("../models/Reservation.model");
 
+const fileUploader = require("../config/cloudinary.config");
+
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const attachCurrentUser = require("../middleware/attachCurrentUser");
+
+// POST "/api/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
+router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
+  // console.log("file is: ", req.file)
+
+  if (!req.file) {
+    next(new Error("No file uploaded!"));
+    return;
+  }
+
+  // Get the URL of the uploaded file and send it as a response.
+  // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
+
+  res.json({ fileUrl: req.file.path });
+});
+
 // POST /api/houses  -  Creates a new house
 router.post("/houses", isAuthenticated, attachCurrentUser, (req, res, next) => {
-  const { title, description, cost, location } = req.body;
+  const { title, description, imageUrl, cost, location } = req.body;
   const newHouse = {
     title,
     description,
+    imageUrl,
     cost,
     location,
     ownerId: req.currentUser._id,
