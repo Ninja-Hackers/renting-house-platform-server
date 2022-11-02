@@ -26,13 +26,29 @@ router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
 
 // POST /api/houses  -  Creates a new house
 router.post("/houses", isAuthenticated, attachCurrentUser, (req, res, next) => {
-  const { title, description, imageUrl, cost, location, offers } = req.body;
+  const {
+    title,
+    description,
+    imageUrl,
+    cost,
+    location,
+    guests,
+    bedroom,
+    bed,
+    bath,
+    offers,
+  } = req.body;
+
   const newHouse = {
     title,
     description,
     imageUrl,
     cost,
     location,
+    guests,
+    bedroom,
+    bed,
+    bath,
     offers,
     ownerId: req.currentUser._id,
     reservations: [],
@@ -128,7 +144,6 @@ router.put(
         ) {
           House.findByIdAndUpdate(houseId, req.body, { new: true })
             .then((updatedHouse) => {
-              console.log(updatedHouse);
               res.json(updatedHouse);
             })
             .catch((err) => {
