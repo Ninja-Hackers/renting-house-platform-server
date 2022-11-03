@@ -29,6 +29,8 @@ const houseSchema = new Schema({
     type: Number,
   },
   offers: { basicOffers: [String] },
+  comments: [String],
+  likes: { type: Number, default: 0 },
   ownerId: {
     type: Schema.Types.ObjectId,
     ref: "User",

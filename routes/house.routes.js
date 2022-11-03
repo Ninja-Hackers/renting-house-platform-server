@@ -123,6 +123,29 @@ router.get("/houses/:houseId", (req, res, next) => {
     });
 });
 
+//  POST /api/houses/:houseId -  Add comments to house by id
+router.post(
+  "/houses/:houseId",
+  isAuthenticated,
+  attachCurrentUser,
+  (req, res, next) => {
+    const { comment, numberOfLikes, houseId } = req.body;
+
+    House.findByIdAndUpdate(houseId, {
+      $push: { comments: comment },
+      likes: numberOfLikes,
+    })
+      .then((response) => res.json(response))
+      .catch((err) => {
+        console.log("error creating a new reservation...", err);
+        res.status(500).json({
+          message: "error creating a new reservation",
+          error: err,
+        });
+      });
+  }
+);
+
 // PUT  /api/houses/:houseId  -  Updates a specific house by id
 router.put(
   "/houses/:houseId",
